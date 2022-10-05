@@ -10,7 +10,8 @@ const CACHE_INMUTABLE_NAME = 'inmutable-v1';
 
 //Define el APP_SHELL
 const APP_SHELL=[
-    '/', 
+    // '/',
+    //Solo es necesario estrictamente para el ambiente de desarrollo 
     '/index.html',
     '/css/style.css',
     '/img/favicon.ico',

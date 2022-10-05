@@ -1,11 +1,17 @@
-
+var url = window.location.href;
+var swLocation = '/Twittor/sw.js' //Tomado de la url en donde está publicada la app: https://yorvich.github.io/Twittor/ 
 
 if ( navigator.serviceWorker ) {
-    navigator.serviceWorker.register('/sw.js');
+
+    if (url.includes('localhost')) {
+        //Estamos en el ambiente de desarrollo
+        swLocation = '/sw.js'
+    };
+    
+    navigator.serviceWorker.register(swLocation);
 }
 
 // Referencias de jQuery
-
 var titulo      = $('#titulo');
 var nuevoBtn    = $('#nuevo-btn');
 var salirBtn    = $('#salir-btn');
