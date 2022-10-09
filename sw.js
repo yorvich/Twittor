@@ -5,7 +5,7 @@ const CACHE_STATIC_NAME = 'static-v4';
 const CACHE_DYNAMIC_NAME = 'dynamic-v2';
 const CACHE_DYNAMIC_LIMIT = 50;
 
-const CACHE_INMUTABLE_NAME = 'inmutable-v1';
+const CACHE_INMUTABLE_NAME = 'inmutable-v2';
 
 
 //Define el APP_SHELL
@@ -29,7 +29,7 @@ const APP_SHELL=[
 const APP_SHELL_INMUTABLE=[
     'https://fonts.googleapis.com/css?family=Quicksand:300,400',
     'https://fonts.googleapis.com/css?family=Lato:400,300',
-    'css/fontawesome-free-6.2.0-web-all.css',
+    'css/fontawesome-free-5.3.1-web-all.css',
     'css/animate.css',
     'js/libs/jquery.js'
 ];
@@ -44,7 +44,7 @@ self.addEventListener('install', event =>{
        .then(cache => cache.addAll(APP_SHELL));
 
     const cacheInmutable = caches.open(CACHE_INMUTABLE_NAME)
-    .then(cache => cache.addAll(APP_SHELL_INMUTABLE));
+        .then(cache => cache.addAll(APP_SHELL_INMUTABLE));
 
     // Espera obligatoriamente hasta que se termine el almacenamiento en los caches de la app
     event.waitUntil(Promise.all([cacheStatic, cacheInmutable]));
@@ -67,6 +67,10 @@ self.addEventListener('activate', event => {
             }
             
             if (key!==CACHE_DYNAMIC_NAME && key.includes('dynamic')) {
+                return caches.delete(key);
+            }
+
+            if (key!==APP_SHELL_INMUTABLE && key.includes('inmutable')) {
                 return caches.delete(key);
             }
         })
